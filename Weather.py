@@ -1,6 +1,8 @@
 class Weather(object):
 
-    def __init__(self, feelsLike, minTemp, maxTemp, weatherState):
+    # class for weather objects
+
+    def __init__(self, feelsLike, minTemp, maxTemp, weatherState = ''):
         self.__feelsLike = feelsLike
         self.__minTemp = minTemp
         self.__maxTemp = maxTemp
