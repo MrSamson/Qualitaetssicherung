@@ -11,7 +11,8 @@ class WeatherWrapper(object):
 
     def __apicall(self, location):
         # Testing with API Call
-        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&appid={}'.format(location, 'f9129773efcfc84c3e2c1bf63eb2f65c')
+        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&appid={}'.format(location, 'metric',
+                                                                                              'f9129773efcfc84c3e2c1bf63eb2f65c', )
         res = requests.get(url)
         data = res.json()
         return data
@@ -19,7 +20,7 @@ class WeatherWrapper(object):
         #print(res)
 
     def publicapicall(self, location):
-        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&appid={}'.format(location,'metric', 'f9129773efcfc84c3e2c1bf63eb2f65c',)
+        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&appid={}'.format(location, 'metric', 'f9129773efcfc84c3e2c1bf63eb2f65c',)
         res = requests.get(url)
         data = res.json()
         print(data)
