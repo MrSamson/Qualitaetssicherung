@@ -1,9 +1,9 @@
 import pyowm
 import requests
-import Weather
+from Weather import Weather
 import json
-
-
+import datetime
+import time
 
 class WeatherWrapper(object):
     dict = {}
@@ -17,7 +17,6 @@ class WeatherWrapper(object):
         data = res.json()
         return data
 
-        #print(res)
 
     def publicapicall(self, location):
         json_data = self.__apicall(location)
@@ -26,45 +25,90 @@ class WeatherWrapper(object):
         return currentWeather
 
 
-    def initWeather(self,json_data ):
-        data = json.dumps(json_data)
-
-        for x in json_data:
-            json_data['list'][x]['dt'] = Weather()
-            json_data['list'][x]['dt'].setTemperature(json_data['list'][x]['main']['temp'])
-            json_data['list'][x]['dt'].setFeelsLike(json_data['list'][x]['main']['feels_like'])
-            json_data['list'][x]['dt'].setMinTemp(json_data['list'][x]['main']['temp_min'])
-            json_data['list'][x]['dt'].setMaxTemp(json_data['list'][x]['main']['temp_max'])
-            dict[x] =json_data['list'][x]['dt']
-
-
-    def callDict(self):
-        print(dict)
-
     def getCurrentWeather(self, location):
-
         json = self.__apicall(location)
 
-        #return json
-        # todo: json auseinanderpfrimeln
-        currentWeather = json['list'][7]['dt']
+        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
+        weatherlist = {}
+        objName = str(json['list'][0]['dt'])
+        temperature = json['list'][0]['main']['temp']
+        temp_min = json['list'][0]['main']['temp_min']
+        temp_max = json['list'][0]['main']['temp_max']
+        temp_feels_like = json['list'][0]['main']['feels_like']
+        temp_dt = json['list'][0]['dt_txt']
+        weatherstate = json['list'][0]['weather'][0]['description']
 
-        return currentWeather
+        weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
+
+        return weatherlist[objName]
+
+    def getTodayWeather(self, location):
+        json = self.__apicall(location)
+
+        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
+        weatherlist = {}
+        today = datetime.date.today()
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        unixtime = time.mktime(tomorrow.timetuple())
+        # while dt_text <= heute
+        i = 0
+        while float(json['list'][i]['dt']) <= unixtime:
+            objName = str(json['list'][i]['dt'])
+            temperature = json['list'][i]['main']['temp']
+            temp_min = json['list'][i]['main']['temp_min']
+            temp_max = json['list'][i]['main']['temp_max']
+            temp_feels_like = json['list'][i]['main']['feels_like']
+            temp_dt = json['list'][i]['dt_txt']
+            weatherstate = json['list'][i]['weather'][0]['description']
+            weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
+            i += 1
 
 
-        # todo: create object with values from json
-        #weather = Weather()
+        return weatherlist
 
+    # Testausgabe
+    def printToday(self):
+        w = WeatherWrapper()
+        list = {}
+        list = w.getTodayWeather('Karlsruhe')
+        # w.getTodayWeather('Karlsruhe')
+        for x in list:
+            print("Uhrzeit: ")
+            print(list[x].getDt())
+            print("Temp: ")
+            print(list[x].getTemperature())
+            print("feels like: ")
+            print(list[x].getFeelsLike())
+            print("min: ")
+            print(list[x].getMinTemp())
+            print("max: ")
+            print(list[x].getMaxTemp())
+            print("------")
+
+    def printCurrent(self):
+        w = WeatherWrapper()
+
+        print("Datum: ")
+        print(w.getCurrentWeather('Karlsruhe').getDt())
+        print("temperatur: ")
+        print(w.getCurrentWeather('Karlsruhe').getTemperature())
+        print("temp_min: ")
+        print(w.getCurrentWeather('Karlsruhe').getMinTemp())
+        print("temp_max: ")
+        print(w.getCurrentWeather('Karlsruhe').getMaxTemp())
+        print("feels like: ")
+        print(w.getCurrentWeather('Karlsruhe').getFeelsLike())
+        print("Wetter: ")
+        print(w.getCurrentWeather('Karlsruhe').getWeatherState())
 
 
 
 w = WeatherWrapper()
+w.printCurrent()
+print("-----------------------------------")
+w.printToday()
 
-#w.getCurrentWeather('Karlsruhe')
-#print(w.getCurrentWeather('Karlsruhe'))
-print(w.publicapicall('Karlsruhe'))
-#w.initWeather(w.publicapicall('Karlsruhe'))
-#print(w.callDict())
+
 
 
 
