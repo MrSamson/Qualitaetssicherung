@@ -5,9 +5,9 @@ import json
 import datetime
 import time
 
+
 class WeatherWrapper(object):
     dict = {}
-
 
     def __apicall(self, location):
         # Testing with API Call
@@ -17,13 +17,11 @@ class WeatherWrapper(object):
         data = res.json()
         return data
 
-
     def publicapicall(self, location):
         json_data = self.__apicall(location)
-        #currentWeather = json['list'][0]['dt']
+        # currentWeather = json['list'][0]['dt']
         currentWeather = json.loads(json_data)
         return currentWeather
-
 
     def getCurrentWeather(self, location):
         json = self.__apicall(location)
@@ -63,14 +61,13 @@ class WeatherWrapper(object):
             weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
             i += 1
 
-
         return weatherlist
 
     # Testausgabe
-    def printToday(self):
+    def printToday(self, location):
         w = WeatherWrapper()
-        list = {}
-        list = w.getTodayWeather('Karlsruhe')
+
+        list = w.getTodayWeather(location)
         # w.getTodayWeather('Karlsruhe')
         for x in list:
             print("Uhrzeit: ")
@@ -85,33 +82,24 @@ class WeatherWrapper(object):
             print(list[x].getMaxTemp())
             print("------")
 
-    def printCurrent(self):
+    def printCurrent(self, location):
         w = WeatherWrapper()
 
         print("Datum: ")
-        print(w.getCurrentWeather('Karlsruhe').getDt())
+        print(w.getCurrentWeather(location).getDt())
         print("temperatur: ")
-        print(w.getCurrentWeather('Karlsruhe').getTemperature())
+        print(w.getCurrentWeather(location).getTemperature())
         print("temp_min: ")
-        print(w.getCurrentWeather('Karlsruhe').getMinTemp())
+        print(w.getCurrentWeather(location).getMinTemp())
         print("temp_max: ")
-        print(w.getCurrentWeather('Karlsruhe').getMaxTemp())
+        print(w.getCurrentWeather(location).getMaxTemp())
         print("feels like: ")
-        print(w.getCurrentWeather('Karlsruhe').getFeelsLike())
+        print(w.getCurrentWeather(location).getFeelsLike())
         print("Wetter: ")
-        print(w.getCurrentWeather('Karlsruhe').getWeatherState())
-
+        print(w.getCurrentWeather(location).getWeatherState())
 
 
 w = WeatherWrapper()
-w.printCurrent()
+w.printCurrent('Karlsruhe')
 print("-----------------------------------")
-w.printToday()
-
-
-
-
-
-
-
-
+w.printToday('Neulingen')
