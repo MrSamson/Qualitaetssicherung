@@ -65,10 +65,10 @@ class WeatherWrapper(object):
 
     # Testausgabe
     def printToday(self, location):
-        w = WeatherWrapper()
+        wrapper = WeatherWrapper()
 
-        list = w.getTodayWeather(location)
-        # w.getTodayWeather('Karlsruhe')
+        list = wrapper.getTodayWeather(location)
+        # wrapper.getTodayWeather('Karlsruhe')
         for x in list:
             print("Uhrzeit: ")
             print(list[x].getDt())
@@ -83,23 +83,23 @@ class WeatherWrapper(object):
             print("------")
 
     def printCurrent(self, location):
-        w = WeatherWrapper()
+        wrapper = WeatherWrapper()
 
         print("Datum: ")
-        print(w.getCurrentWeather(location).getDt())
+        print(wrapper.getCurrentWeather(location).getDt())
         print("temperatur: ")
-        print(w.getCurrentWeather(location).getTemperature())
+        print(wrapper.getCurrentWeather(location).getTemperature())
         print("temp_min: ")
-        print(w.getCurrentWeather(location).getMinTemp())
+        print(wrapper.getCurrentWeather(location).getMinTemp())
         print("temp_max: ")
-        print(w.getCurrentWeather(location).getMaxTemp())
+        print(wrapper.getCurrentWeather(location).getMaxTemp())
         print("feels like: ")
-        print(w.getCurrentWeather(location).getFeelsLike())
+        print(wrapper.getCurrentWeather(location).getFeelsLike())
         print("Wetter: ")
-        print(w.getCurrentWeather(location).getWeatherState())
+        print(wrapper.getCurrentWeather(location).getWeatherState())
 
 
-w = WeatherWrapper()
-w.printCurrent('Karlsruhe')
+wrapper = WeatherWrapper()
+wrapper.printCurrent('Karlsruhe')
 print("-----------------------------------")
-w.printToday('Neulingen')
+wrapper.printToday('Neulingen')
