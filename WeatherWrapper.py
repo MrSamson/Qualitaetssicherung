@@ -63,6 +63,32 @@ class WeatherWrapper(object):
 
         return weatherlist
 
+    def getFiveDayForecast(self, location):
+        json = self.__apicall(location)
+
+        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
+        weatherlist = {}
+        today = datetime.date.today()
+        fiveDaysLater = datetime.date.today() + datetime.timedelta(days=4)
+        unixtime = time.mktime(fiveDaysLater.timetuple())
+        i = 0
+        # while float(json['list'][i]['dt']) <= unixtime:
+        #     objName = str(json['list'][i]['dt'])
+        #     temperature = json['list'][i]['main']['temp']
+        #     temp_min = json['list'][i]['main']['temp_min']
+        #     temp_max = json['list'][i]['main']['temp_max']
+        #     temp_feels_like = json['list'][i]['main']['feels_like']
+        #     temp_dt = json['list'][i]['dt_txt']
+        #     weatherstate = json['list'][i]['weather'][0]['description']
+        #     weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
+        #     i += 1
+
+        # return weatherlist
+        return unixtime
+
+
+
+
     # Testausgabe
     def printToday(self, location):
         wrapper = WeatherWrapper()
@@ -82,6 +108,22 @@ class WeatherWrapper(object):
             print(list[x].getMaxTemp())
             print("------")
 
+    def printforecast(self, location):
+        wrapper = WeatherWrapper()
+
+        print("Datum: ")
+        print(wrapper.getFiveDayForecast(location))
+        # print("temperatur: ")
+        # print(wrapper.getCurrentWeather(location).getTemperature())
+        # print("temp_min: ")
+        # print(wrapper.getCurrentWeather(location).getMinTemp())
+        # print("temp_max: ")
+        # print(wrapper.getCurrentWeather(location).getMaxTemp())
+        # print("feels like: ")
+        # print(wrapper.getCurrentWeather(location).getFeelsLike())
+        # print("Wetter: ")
+        # print(wrapper.getCurrentWeather(location).getWeatherState())
+
     def printCurrent(self, location):
         wrapper = WeatherWrapper()
 
@@ -100,6 +142,8 @@ class WeatherWrapper(object):
 
 
 wrapper = WeatherWrapper()
-wrapper.printCurrent('Karlsruhe')
-print("-----------------------------------")
-wrapper.printToday('Neulingen')
+# wrapper.printCurrent('Karlsruhe')
+# print("-----------------------------------")
+# wrapper.printToday('Karlsruhe')
+# print("-----------------------------------")
+wrapper.printforecast('Karlsruhe')
