@@ -1,28 +1,32 @@
+from WeatherWrapper import WeatherWrapper
+
+
 class IO(object):
     # Methoden
     # getCorrespondingWeatherData
     # outputWeather
 
-
     # Attribute
     # optionArray
 
-
-
     def getUserInput(self):
         userInput = input("[location], [current, today, forecast]")
+        optionArray = {'location': '', 'option': 'current'}
+        inputArray = userInput.lower().split(",")
 
-        validateInput(userInput)
+        if len(userInput) > 1:
+            optionArray['location'] = inputArray[0]
+            optionArray['location'] = inputArray[1]
+        elif len(inputArray) > 0:
+            optionArray['location'] = inputArray[0]
+        else:
+            print("Please provide some input")
+
+    def getCurrentWeather(self, location):
+        weatherWrapper = WeatherWrapper()
+        return weatherWrapper.getCurrentWeather(location)
 
 
-def validateInput(self, userInput):
-    optionArray = {'location': '', 'option': 'current'}
-    inputArray = userInput.lower().split(",")
+    io = IO()
+    io.getUserInput()
 
-    if len(inputArray) > 1:
-        optionArray['location'] = inputArray[0]
-        optionArray['location'] = inputArray[1]
-    elif len(inputArray) > 0:
-        optionArray['location'] = inputArray[0]
-    else
-        print("Please provide some input")
