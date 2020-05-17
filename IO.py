@@ -14,19 +14,31 @@ class IO(object):
         optionArray = {'location': '', 'option': 'current'}
         inputArray = userInput.lower().split(",")
 
-        if len(userInput) > 1:
-            optionArray['location'] = inputArray[0]
-            optionArray['location'] = inputArray[1]
-        elif len(inputArray) > 0:
-            optionArray['location'] = inputArray[0]
+        if len(inputArray) == 2:
+            optionArray['location'] = inputArray[0].strip()
+            optionArray['option'] = inputArray[1].strip()
+
+        elif len(inputArray) == 1:
+            optionArray['location'] = inputArray[0].strip()
         else:
             print("Please provide some input")
 
-    def getCurrentWeather(self, location):
+        return self.getWeather(optionArray)
+
+    @staticmethod
+    def getWeather(inputArray):
         weatherWrapper = WeatherWrapper()
-        return weatherWrapper.getCurrentWeather(location)
+
+        if inputArray['option'] == 'current':
+            return weatherWrapper.getCurrentWeather(inputArray['location'])
+        elif inputArray['option'] == 'today':
+            return weatherWrapper.getTodayWeather(inputArray['location'])
+        elif inputArray['option'] == 'forecast':
+            return weatherWrapper.getFiveDaysForecast(inputArray['location'])
+        else:
+            return "something went wrong with the option"
 
 
-    io = IO()
-    io.getUserInput()
+io = IO()
+print(io.getUserInput().getTemperature())
 

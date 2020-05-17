@@ -136,10 +136,10 @@ class WeatherWrapper(object):
         print(wrapper.getCurrentWeather(location).getWeatherState())
 
 
-wrapper = WeatherWrapper()
-wrapper.printCurrent('Karlsruhe')
-print("programm läuft weiter")
-print("-----------------------------------")
-wrapper.printToday('Karlsruhe')
-print("-----------------------------------")
+#wrapper = WeatherWrapper()
+#wrapper.printCurrent('Karlsruhe')
+#print("programm läuft weiter")
+#print("-----------------------------------")
+#wrapper.printToday('Karlsruhe')
+#print("-----------------------------------")
 # wrapper.printforecast('Karlsruhe')
