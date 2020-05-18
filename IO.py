@@ -25,20 +25,28 @@ class IO(object):
 
         return self.getWeather(optionArray)
 
-    @staticmethod
-    def getWeather(inputArray):
-        weatherWrapper = WeatherWrapper()
-
+    def getWeather(self, inputArray):
         if inputArray['option'] == 'current':
-            return weatherWrapper.getCurrentWeather(inputArray['location'])
+            return self.getCurrentWeather(inputArray['location'])
         elif inputArray['option'] == 'today':
-            return weatherWrapper.getTodayWeather(inputArray['location'])
+            return self.getTodayWeather(inputArray['location'])
         elif inputArray['option'] == 'forecast':
-            return weatherWrapper.getFiveDaysForecast(inputArray['location'])
+            return self.getForecast(inputArray['location'])
         else:
             return "something went wrong with the option"
 
+    def getCurrentWeather(self, location):
+        weatherWrapper = WeatherWrapper()
+        return weatherWrapper.printCurrent(location)
+
+    def getTodayWeather(self, location):
+        weatherWrapper = WeatherWrapper()
+        return weatherWrapper.printToday(location)
+
+    def getForecast(self, location):
+        weatherWrapper = WeatherWrapper()
+        return weatherWrapper.printforecast(location)
+
 
 io = IO()
-print(io.getUserInput().getTemperature())
-
+print(io.getUserInput())

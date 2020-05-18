@@ -98,6 +98,8 @@ class WeatherWrapper(object):
             print(list[x].getMinTemp())
             print("max: ")
             print(list[x].getMaxTemp())
+            print("Wetter: ")
+            print(list[x].getWeatherState())
             print("------")
 
 
