@@ -80,57 +80,7 @@ class WeatherWrapper(object):
         return weatherlist
 
 
-    # Testausgabe
-    def printToday(self, location):
-        wrapper = WeatherWrapper()
-
-        list = wrapper.getTodayWeather(location)
-        for x in list:
-            print("Uhrzeit: ")
-            print(list[x].getDt())
-            print("Temp: ")
-            print(list[x].getTemperature())
-            print("feels like: ")
-            print(list[x].getFeelsLike())
-            print("min: ")
-            print(list[x].getMinTemp())
-            print("max: ")
-            print(list[x].getMaxTemp())
-            print("Wetter: ")
-            print(list[x].getWeatherState())
-            print("------")
 
 
-    def printforecast(self, location):
-        wrapper = WeatherWrapper()
-        list = wrapper.getFiveDaysForecast(location)
-        for x in list:
-            print("Datum: ")
-            print(list[x].getDt())
-            print("temperatur: ")
-            print(wrapper.getCurrentWeather(location).getTemperature())
-            print("temp_min: ")
-            print(wrapper.getCurrentWeather(location).getMinTemp())
-            print("temp_max: ")
-            print(wrapper.getCurrentWeather(location).getMaxTemp())
-            print("feels like: ")
-            print(wrapper.getCurrentWeather(location).getFeelsLike())
-            print("Wetter: ")
-            print(wrapper.getCurrentWeather(location).getWeatherState())
 
 
-    def printCurrent(self, location):
-        wrapper = WeatherWrapper()
-
-        print("Datum: ")
-        print(wrapper.getCurrentWeather(location).getDt())
-        print("temperatur: ")
-        print(wrapper.getCurrentWeather(location).getTemperature())
-        print("temp_min: ")
-        print(wrapper.getCurrentWeather(location).getMinTemp())
-        print("temp_max: ")
-        print(wrapper.getCurrentWeather(location).getMaxTemp())
-        print("feels like: ")
-        print(wrapper.getCurrentWeather(location).getFeelsLike())
-        print("Wetter: ")
-        print(wrapper.getCurrentWeather(location).getWeatherState())
