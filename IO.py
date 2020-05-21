@@ -2,12 +2,6 @@ from WeatherWrapper import WeatherWrapper
 
 
 class IO(object):
-    # Methoden
-    # getCorrespondingWeatherData
-    # outputWeather
-
-    # Attribute
-    # optionArray
 
     def getUserInput(self):
         userInput = input("[location], [current, today, forecast]")

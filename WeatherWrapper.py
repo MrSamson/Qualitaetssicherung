@@ -1,7 +1,5 @@
-import pyowm
 import requests
 from Weather import Weather
-import json
 import datetime
 import time
 import requests.exceptions
@@ -136,12 +134,3 @@ class WeatherWrapper(object):
         print(wrapper.getCurrentWeather(location).getFeelsLike())
         print("Wetter: ")
         print(wrapper.getCurrentWeather(location).getWeatherState())
-
-
-#wrapper = WeatherWrapper()
-#wrapper.printCurrent('Karlsruhe')
-#print("programm läuft weiter")
-#print("-----------------------------------")
-#wrapper.printToday('Karlsruhe')
-#print("-----------------------------------")
-# wrapper.printforecast('Karlsruhe')
