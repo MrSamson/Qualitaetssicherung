@@ -9,7 +9,7 @@ class WeatherWrapper(object):
 
     def __apicall(self, location):
         api_key = 'f9129773efcfc84c3e2c1bf63eb2f65c'
-        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&appid={}'.format(location, 'metric',
+        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&lang=de&appid={}'.format(location, 'metric',
                                                                                               api_key, )
         res = requests.get(url)
         try:

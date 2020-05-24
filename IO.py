@@ -2,12 +2,13 @@ from WeatherWrapper import WeatherWrapper
 
 
 class IO(object):
-    # Methoden
-    # getCorrespondingWeatherData
-    # outputWeather
 
-    # Attribute
-    # optionArray
+    def startTool(self):
+
+       if (self.printWeather(self.getUserInput()) != 0):
+           print("error")
+
+
 
     def getUserInput(self):
         userInput = input("[location], [current, today, forecast]")
@@ -23,71 +24,61 @@ class IO(object):
         else:
             print("Please provide some input")
 
-        return self.getWeather(optionArray)
+        return optionArray
 
-    def getWeather(self, inputArray):
+    def printWeather(self, inputArray):
+        wrapper = WeatherWrapper()
+
         if inputArray['option'] == 'current':
-            return self.printCurrent(inputArray['location'])
+
+            weather = wrapper.getCurrentWeather(inputArray['location'])
+
+            self.printCurrent(weather)
+
+            #self.printCurrent(inputArray['location'])
         elif inputArray['option'] == 'today':
-            return self.printToday(inputArray['location'])
+            weatherList = wrapper.getTodayWeather(inputArray['location'])
+            self.printToday(weatherList)
         elif inputArray['option'] == 'forecast':
-            return self.printforecast(inputArray['location'])
+            weatherList = wrapper.getFiveDaysForecast(inputArray['location'])
+            self.printforecast(weatherList)
         else:
-            return "something went wrong with the option"
+            return 1000
+
+        return 0
 
     # Textausgabe
-    def printToday(self, location):
-        wrapper = WeatherWrapper()
+    def printToday(self, list):
 
-        list = wrapper.getTodayWeather(location)
+        print("------")
         for x in list:
-            print("Uhrzeit: ")
-            print(list[x].getDt())
-            print("Temp: ")
-            print(list[x].getTemperature())
-            print("feels like: ")
-            print(list[x].getFeelsLike())
-            # print("min: ")
-            # print(list[x].getMinTemp())
-            # print("max: ")
-            # print(list[x].getMaxTemp())
-            print("Wetter: ")
-            print(wrapper.getCurrentWeather(location).getWeatherState())
+            print("Um",                                list[x].getDt(), "Uhr beträgt die Temperatur",
+                                                        list[x].getTemperature(), "°C")
+            print("Das Wetter zeichnet sich aus durch", list[x].getWeatherState())
+            print("Die gefühlte Temperatur beträgt",    list[x].getFeelsLike(), "°C")
+            print("Die Temperatur schwankt zwischen",   list[x].getMinTemp(), "°C und ",
+                                                        list[x].getMaxTemp(), "°C")
             print("------")
 
-    def printforecast(self, location):
-        wrapper = WeatherWrapper()
-        list = wrapper.getFiveDaysForecast(location)
+
+    def printforecast(self, list):
+
+        print("------")
         for x in list:
-            print("Datum: ")
-            print(list[x].getDt())
-            print("temperatur: ")
-            print(wrapper.getCurrentWeather(location).getTemperature())
-            print("temp_min: ")
-            print(wrapper.getCurrentWeather(location).getMinTemp())
-            print("temp_max: ")
-            print(wrapper.getCurrentWeather(location).getMaxTemp())
-            print("feels like: ")
-            print(wrapper.getCurrentWeather(location).getFeelsLike())
-            print("Wetter: ")
-            print(wrapper.getCurrentWeather(location).getWeatherState())
+            print("Um", list[x].getDt(), "Uhr beträgt die Temperatur",
+                  list[x].getTemperature(), "°C")
+            print("Das Wetter zeichnet sich aus durch", list[x].getWeatherState())
+            print("Die gefühlte Temperatur beträgt", list[x].getFeelsLike(), "°C")
+            print("------")
 
-    def printCurrent(self, location):
-        wrapper = WeatherWrapper()
+    def printCurrent(self, weather):
 
-        print("Datum: ")
-        print(wrapper.getCurrentWeather(location).getDt())
-        print("temperatur: ")
-        print(wrapper.getCurrentWeather(location).getTemperature())
-        print("temp_min: ")
-        print(wrapper.getCurrentWeather(location).getMinTemp())
-        print("temp_max: ")
-        print(wrapper.getCurrentWeather(location).getMaxTemp())
-        print("feels like: ")
-        print(wrapper.getCurrentWeather(location).getFeelsLike())
-        print("Wetter: ")
-        print(wrapper.getCurrentWeather(location).getWeatherState())
-
+        print("------")
+        print("Die aktuelle Temperatur beträgt",        weather.getTemperature(), "°C")
+        print("Das Wetter zeichnet sich aus durch",     weather.getWeatherState())
+        print("Die gefühlte Temperatur beträgt",        weather.getFeelsLike(), "°C")
+        print("------")
 
 io = IO()
-print(io.getUserInput())
+io.startTool()
+# io.getUserInput()
