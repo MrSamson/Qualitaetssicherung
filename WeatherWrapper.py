@@ -19,7 +19,6 @@ class WeatherWrapper(object):
         except requests.exceptions.RequestException as e:
             raise SystemExit(e)
 
-
     def getCurrentWeather(self, location):
         json = self.__apicall(location)
 
@@ -36,7 +35,6 @@ class WeatherWrapper(object):
         weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
 
         return weatherlist[objName]
-
 
     def getTodayWeather(self, location):
         json = self.__apicall(location)
@@ -60,27 +58,19 @@ class WeatherWrapper(object):
 
         return weatherlist
 
-
     def getFiveDaysForecast(self, location):
         json = self.__apicall(location)
 
         # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
         weatherlist = {}
-
         for i in range(json["cnt"]):
-            objName = str(json['list'][i]['dt'])
-            temperature = json['list'][i]['main']['temp']
-            temp_min = json['list'][i]['main']['temp_min']
-            temp_max = json['list'][i]['main']['temp_max']
-            temp_feels_like = json['list'][i]['main']['feels_like']
-            temp_dt = json['list'][i]['dt_txt']
-            weatherstate = json['list'][i]['weather'][0]['description']
-            weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
-
+            if json['list'][i]['dt_txt'][-8:] == "12:00:00":
+                objName = str(json['list'][i]['dt'])
+                temperature = json['list'][i]['main']['temp']
+                temp_min = json['list'][i]['main']['temp_min']
+                temp_max = json['list'][i]['main']['temp_max']
+                temp_feels_like = json['list'][i]['main']['feels_like']
+                temp_dt = json['list'][i]['dt_txt']
+                weatherstate = json['list'][i]['weather'][0]['description']
+                weatherlist[objName] = Weather(temperature, temp_feels_like, temp_min, temp_max, temp_dt, weatherstate)
         return weatherlist
-
-
-
-
-
-
