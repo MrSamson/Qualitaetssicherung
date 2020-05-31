@@ -1,14 +1,12 @@
 from WeatherWrapper import WeatherWrapper
+from OutputInterface import OutputInterface
 
-
-class IO(object):
+class IO(OutputInterface):
 
     def startTool(self):
 
-       if (self.printWeather(self.getUserInput()) != 0):
+       if (self.sendWeather(self.getUserInput()) != 0):
            print("error")
-
-
 
     def getUserInput(self):
         userInput = input("[location], [current, today, forecast]")
@@ -26,16 +24,12 @@ class IO(object):
 
         return optionArray
 
-    def printWeather(self, inputArray):
+    def sendWeather(self, inputArray):
         wrapper = WeatherWrapper()
 
         if inputArray['option'] == 'current':
-
             weather = wrapper.getCurrentWeather(inputArray['location'])
-
             self.printCurrent(weather)
-
-            #self.printCurrent(inputArray['location'])
         elif inputArray['option'] == 'today':
             weatherList = wrapper.getTodayWeather(inputArray['location'])
             self.printToday(weatherList)
@@ -81,4 +75,3 @@ class IO(object):
 
 io = IO()
 io.startTool()
-# io.getUserInput()
