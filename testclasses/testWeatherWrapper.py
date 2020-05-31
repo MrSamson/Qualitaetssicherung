@@ -1,6 +1,6 @@
 import datetime
 import unittest
-from WeatherWrapper import WeatherWrapper
+from WeatherReport import WeatherReport
 
 
 # refering to: https://docs.python.org/3/library/unittest.html
@@ -10,23 +10,23 @@ class testWeatherWrapper(unittest.TestCase):
     # checks if an object of WeatherWrapper is created
     # may be used for learning tests, to see how the constructor works
     def testWeatherWrapperConstructor(self):
-        w = WeatherWrapper()
-        self.assertIsInstance(w, WeatherWrapper)
+        w = WeatherReport()
+        self.assertIsInstance(w, WeatherReport)
 
     # gets the current weather for Karlsruhe and checks if there will be
     # a new object-type (weather-Object) delivered
     # may be used for learning tests
     def testGetCurrentWeatherKarlsruhe(self):
         location = 'Karlsruhe'
-        weatherWrapper = WeatherWrapper()
-        self.assertNotIsInstance(weatherWrapper.getCurrentWeather(location), WeatherWrapper)
+        weatherWrapper = WeatherReport()
+        self.assertNotIsInstance(weatherWrapper.getCurrentWeather(location), WeatherReport)
 
     # gets the current weather for Heidelberg and puts the results into an object
     # checks if all needed values are set
     # may be used for learning tests to see what values we can get
     def testGetCurrentWeatherKarlsruheCheckValues(self):
         location = 'Heidelberg'
-        weatherWrapper = WeatherWrapper()
+        weatherWrapper = WeatherReport()
         currentWeather = weatherWrapper.getCurrentWeather(location)
         self.assertIsNotNone(currentWeather.getMinTemp())
         self.assertIsNotNone(currentWeather.getFeelsLike())
@@ -40,7 +40,7 @@ class testWeatherWrapper(unittest.TestCase):
     # may be used for learning tests
     def testGetCurrentWeatherKarlsruhe(self):
         location = 'Heidelberg'
-        weatherWrapper = WeatherWrapper()
+        weatherWrapper = WeatherReport()
         forecastList = weatherWrapper.getFiveDaysForecast(location)
 
         self.assertGreater(len(forecastList), 1)
@@ -51,7 +51,7 @@ class testWeatherWrapper(unittest.TestCase):
     # may be used for learning tests
     def testGetCurrentWeatherHeidelbergCheckValues(self):
         location = 'Heidelberg'
-        weatherWrapper = WeatherWrapper()
+        weatherWrapper = WeatherReport()
         forecastList = weatherWrapper.getFiveDaysForecast(location)
 
         for i in forecastList:
@@ -67,7 +67,7 @@ class testWeatherWrapper(unittest.TestCase):
     def testGetTodayWeatherSchwetzingen(self):
         location = 'Schwetzingen'
         yesterday = datetime.date.today() - datetime.timedelta(days=1)
-        weatherWrapper = WeatherWrapper()
+        weatherWrapper = WeatherReport()
         todaysWeather = weatherWrapper.getTodayWeather(location)
 
         # for i in todaysWeather:

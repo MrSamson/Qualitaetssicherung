@@ -1,4 +1,4 @@
-from WeatherWrapper import WeatherWrapper
+from WeatherReport import WeatherReport
 from OutputInterface import OutputInterface
 
 class IO(OutputInterface):
@@ -25,7 +25,7 @@ class IO(OutputInterface):
         return optionArray
 
     def sendWeather(self, inputArray):
-        wrapper = WeatherWrapper()
+        wrapper = WeatherReport()
 
         if inputArray['option'] == 'current':
             weather = wrapper.getCurrentWeather(inputArray['location'])
@@ -55,7 +55,7 @@ class IO(OutputInterface):
             print("------")
 
 
-    def printforecast(self, list):
+    def printForecast(self, list):
 
         print("------")
         for x in list:

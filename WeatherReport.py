@@ -5,12 +5,13 @@ import time
 import requests.exceptions
 
 
-class WeatherWrapper(object):
+class WeatherReport(object):
 
     def __apicall(self, location):
         api_key = 'f9129773efcfc84c3e2c1bf63eb2f65c'
-        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&lang=de&appid={}'.format(location, 'metric',
-                                                                                              api_key, )
+        url = 'http://api.openweathermap.org/data/2.5/forecast?q={}&units={}&lang=de&appid={}'.format(location,
+                                                                                                      'metric',
+                                                                                                      api_key, )
         res = requests.get(url)
         try:
             res.raise_for_status()
@@ -21,8 +22,6 @@ class WeatherWrapper(object):
 
     def getCurrentWeather(self, location):
         json = self.__apicall(location)
-
-        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
         weatherlist = {}
         objName = str(json['list'][0]['dt'])
         temperature = json['list'][0]['main']['temp']
@@ -38,8 +37,6 @@ class WeatherWrapper(object):
 
     def getTodayWeather(self, location):
         json = self.__apicall(location)
-
-        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
         weatherlist = {}
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
         unixtime = time.mktime(tomorrow.timetuple())
@@ -60,8 +57,6 @@ class WeatherWrapper(object):
 
     def getFiveDaysForecast(self, location):
         json = self.__apicall(location)
-
-        # Object format: temperature, feelsLike, minTemp, maxTemp, dt, weatherState = ''
         weatherlist = {}
         for i in range(json["cnt"]):
             if json['list'][i]['dt_txt'][-8:] == "12:00:00":

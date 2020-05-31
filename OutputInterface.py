@@ -12,6 +12,6 @@ class OutputInterface:
 
         pass
 
-    def printforecast(self, list):
+    def printForecast(self, list):
 
         pass
