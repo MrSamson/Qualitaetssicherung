@@ -18,7 +18,7 @@ class WeatherReport(object):
             data = res.json()
             return data
         except requests.exceptions.RequestException as e:
-            raise SystemExit(e)
+            raise #SystemExit(e)
 
     def getCurrentWeather(self, location):
         json = self.__apicall(location)

@@ -1,4 +1,5 @@
 import unittest
+import requests
 from WeatherReport import WeatherReport
 
 
@@ -10,7 +11,16 @@ class testWeatherReport(unittest.TestCase):
     # may be used for learning tests, to see how the constructor works
     def testWeatherReportConstructor(self):
         w = WeatherReport()
-        self.assertIsInstance(w, WeatherReport)
+        self.assertIsNot(w, None)
+
+    # gets the current weather for Karlsruhe and checks if there is something delivered
+    # may be used for learning tests
+    def testValueFromGetCurrentWeatherKarlsruhe(self):
+        location = 'Karlsruhe'
+        weatherReport = WeatherReport()
+        currentWeather = weatherReport.getCurrentWeather(location)
+        self.assertIsNotNone(currentWeather)
+        print(currentWeather.__class__)
 
     # gets the current weather for Karlsruhe and checks if there will be
     # a new object-type (weather-Object) delivered
@@ -18,7 +28,34 @@ class testWeatherReport(unittest.TestCase):
     def testGetCurrentWeatherKarlsruhe(self):
         location = 'Karlsruhe'
         weatherReport = WeatherReport()
-        self.assertNotIsInstance(weatherReport.getCurrentWeather(location), WeatherReport)
+        currentWeather = weatherReport.getCurrentWeather(location)
+        self.assertNotIsInstance(currentWeather, WeatherReport)
+
+
+
+    # this will crash!
+    # may be used for learning tests
+    def testGetCurrentWeatherNonsenseLocationWithoutEception(self):
+        location = 'Bylefeld'
+        weatherReport = WeatherReport()
+        weatherReport.getCurrentWeather(location)
+
+
+    # tests if correct error is raised
+    # may be used for learning tests
+    # refer to: https://stackoverflow.com/questions/6103825/how-to-properly-use-unit-testings-assertraises-with-nonetype-objects
+    def testGetCurrentWeatherNonsenseLocation(self):
+        location = 'Bylefeld'
+        weatherReport = WeatherReport()
+        #weatherReport.getCurrentWeather(location)
+        #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
+        self.assertRaises(requests.exceptions.RequestException, lambda: weatherReport.getCurrentWeather(location))
+
+        #won't work
+        #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
+
+        # should rise an exception or something
+
 
     # gets the current weather for Heidelberg and puts the results into an object
     # checks if all needed values are set
@@ -42,8 +79,13 @@ class testWeatherReport(unittest.TestCase):
         weatherReport = WeatherReport()
         forecastList = weatherReport.getFiveDaysForecast(location)
 
+        print(forecastList.__class__)
+        for i in forecastList:
+            print(forecastList[i].__class__)
+
         self.assertGreater(len(forecastList), 1)
         self.assertEqual(len(forecastList), 5)
+
 
     # gets the five day weather forecast for Mannheim and puts the results into a list
     # checks if all values in all objects are set
