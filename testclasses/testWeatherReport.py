@@ -79,13 +79,11 @@ class testWeatherReport(unittest.TestCase):
         weatherReport = WeatherReport()
         forecastList = weatherReport.getFiveDaysForecast(location)
 
+        self.assertGreater(len(forecastList), 1)
+        self.assertEqual(len(forecastList), 5)
         print(forecastList.__class__)
         for i in forecastList:
             print(forecastList[i].__class__)
-
-        self.assertGreater(len(forecastList), 1)
-        self.assertEqual(len(forecastList), 5)
-
 
     # gets the five day weather forecast for Mannheim and puts the results into a list
     # checks if all values in all objects are set
