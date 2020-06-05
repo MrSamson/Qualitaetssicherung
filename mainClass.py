@@ -1,7 +1,7 @@
 from WeatherReport import WeatherReport
-from Tweeter import OutputInterface
+#from Tweeter import OutputInterface
 
-class IO(OutputInterface):
+class IO():
 
     def startTool(self):
 
