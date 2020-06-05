@@ -1,12 +1,15 @@
 from WeatherReport import WeatherReport
-#from Tweeter import OutputInterface
+from fakeTweeter import tweeterAdapter
+
+
+# from Tweeter import OutputInterface
 
 class IO():
 
     def startTool(self):
 
-       if (self.tweetWeather(self.getUserInput()) != 0):
-           print("error")
+        if (self.tweetWeather(self.getUserInput()) != 0):
+            print("error")
 
     def getUserInput(self):
         userInput = input("[location], [current, today, forecast]")
@@ -26,25 +29,22 @@ class IO():
 
     def tweetWeather(self, inputArray):
         wrapper = WeatherReport()
+        adpater = tweeterAdapter()
 
         if inputArray['option'] == 'current':
             weather = wrapper.getCurrentWeather(inputArray['location'])
-            # adapter would call Twitter-API-POST here
-            # instead we just do a print
-            print(self.buildCurrentWeatherTweet(weather))
-
+            adpater.transmitToTwitter(self.buildCurrentWeatherTweet(weather))
 
         elif inputArray['option'] == 'today':
             weatherList = wrapper.getTodayWeather(inputArray['location'])
-            print(self.buildTodayWeatherTweet(weatherList))
+            adpater.transmitToTwitter(self.buildTodayWeatherTweet(weatherList))
 
         elif inputArray['option'] == 'forecast':
             weatherList = wrapper.getFiveDaysForecast(inputArray['location'])
-            print(self.buildForecastTweet(weatherList))
+            adpater.transmitToTwitter(self.buildForecastTweet(weatherList))
 
         else:
             return 1000
-
 
         return 0
 
@@ -55,7 +55,8 @@ class IO():
 
         # 280 chars allowed
         for x in list:
-            outputString += '{}: Temperatur beträgt {} °C \n'.format(list[x].getDt()[-8: -3], round(list[x].getTemperature()))
+            outputString += '{}: Temperatur beträgt {} °C \n'.format(list[x].getDt()[-8: -3],
+                                                                     round(list[x].getTemperature()))
 
         return outputString
 
@@ -65,17 +66,18 @@ class IO():
 
         for x in list:
             outputString += '{}: Temperatur wird {} °C betragen\n'.format(list[x].getDt()[-0: -9],
-                                                                    round(list[x].getTemperature()))
+                                                                          round(list[x].getTemperature()))
         return outputString
 
     def buildCurrentWeatherTweet(self, weather):
 
         outputString = ('Die aktuelle Temperatur beträgt {} °C. ' \
-                       'Das Wetter zeichnet sich aus durch {}. ' \
-                       'Die gefühlte Temperatur bertägt {} °C.'.format(round(weather.getTemperature()),
-                                                                   weather.getWeatherState(),
-                                                                   round(weather.getFeelsLike())))
+                        'Das Wetter zeichnet sich aus durch {}. ' \
+                        'Die gefühlte Temperatur bertägt {} °C.'.format(round(weather.getTemperature()),
+                                                                        weather.getWeatherState(),
+                                                                        round(weather.getFeelsLike())))
         return outputString
+
 
 io = IO()
 io.startTool()
