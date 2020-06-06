@@ -4,7 +4,7 @@ from Tweeter import OutputInterface
 
 # from TwitterAPI import TwitterAPI
 
-class tweeterAdapter(OutputInterface):
+class TweeterAdapter(OutputInterface):
 
-    def transmitToTwitter(self, tweet=''):
+    def transmitToTwitter(self, tweet):
         print(tweet)

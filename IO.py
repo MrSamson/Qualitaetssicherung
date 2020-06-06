@@ -1,8 +1,5 @@
 from WeatherReport import WeatherReport
-from fakeTweeter import tweeterAdapter
-
-
-# from Tweeter import OutputInterface
+from fakeTweeter import TweeterAdapter
 
 class IO():
 
@@ -12,7 +9,8 @@ class IO():
             print("error")
 
     def getUserInput(self):
-        userInput = input("[location], [current, today, forecast]")
+        userInput = input("""Please give us your location, and the option (current, today, forecast) you wish to know e.g. [stadt], [option]:
+        """)
         optionArray = {'location': '', 'option': 'current'}
         inputArray = userInput.lower().split(",")
 
@@ -29,7 +27,7 @@ class IO():
 
     def tweetWeather(self, inputArray):
         wrapper = WeatherReport()
-        adpater = tweeterAdapter()
+        adpater = TweeterAdapter()
 
         if inputArray['option'] == 'current':
             weather = wrapper.getCurrentWeather(inputArray['location'])
@@ -77,7 +75,3 @@ class IO():
                                                                         weather.getWeatherState(),
                                                                         round(weather.getFeelsLike())))
         return outputString
-
-
-io = IO()
-io.startTool()
