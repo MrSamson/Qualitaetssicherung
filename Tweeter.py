@@ -1,5 +1,5 @@
 
-class OutputInterface:
+class Tweeter:
 
     def getUserInput(self):
 
