@@ -1,15 +1,16 @@
 from WeatherReport import WeatherReport
-from Tweeter import OutputInterface
-# from TwitterAPI import TwitterAPI
+from fakeTweeter import TweeterAdapter
 
-class tweeterAdapter(OutputInterface):
+class IO():
+
     def startTool(self):
 
-       if (self.tweetWeather(self.getUserInput()) != 0):
-           print("error")
+        if (self.tweetWeather(self.getUserInput()) != 0):
+            print("error")
 
     def getUserInput(self):
-        userInput = input("[location], [current, today, forecast]")
+        userInput = input("""Please give us your location, and the option (current, today, forecast) you wish to know e.g. [stadt], [option]:
+        """)
         optionArray = {'location': '', 'option': 'current'}
         inputArray = userInput.lower().split(",")
 
@@ -26,18 +27,24 @@ class tweeterAdapter(OutputInterface):
 
     def tweetWeather(self, inputArray):
         wrapper = WeatherReport()
+        adpater = TweeterAdapter()
 
         if inputArray['option'] == 'current':
-           weather = wrapper.getCurrentWeather(inputArray['location'])
-           print(self.buildCurrentWeatherTweet(weather))
+            weather = wrapper.getCurrentWeather(inputArray['location'])
+            adpater.transmitToTwitter(self.buildCurrentWeatherTweet(weather))
 
         elif inputArray['option'] == 'today':
             weatherList = wrapper.getTodayWeather(inputArray['location'])
-            print(self.buildTodayWeatherTweet(weatherList))
+            adpater.transmitToTwitter(self.buildTodayWeatherTweet(weatherList))
 
         elif inputArray['option'] == 'forecast':
             weatherList = wrapper.getFiveDaysForecast(inputArray['location'])
-            print(self.buildForecastTweet(weatherList))
+            adpater.transmitToTwitter(self.buildForecastTweet(weatherList))
+
+        else:
+            return 1000
+
+        return 0
 
     # Textausgabe
     def buildTodayWeatherTweet(self, list):
@@ -68,4 +75,3 @@ class tweeterAdapter(OutputInterface):
                                                                         weather.getWeatherState(),
                                                                         round(weather.getFeelsLike())))
         return outputString
-
