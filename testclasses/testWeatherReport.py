@@ -101,10 +101,26 @@ class testWeatherReport(unittest.TestCase):
             self.assertIsNotNone(forecastList[i].getDt())
             self.assertIsNotNone(forecastList[i].getWeatherState())
 
-    # todo: fix this
-    # gets todays weather and checks if the date is really at least today
-    def testGetTodayWeatherSchwetzingen(self):
-        pass
+    # test if weather-objects are mutable
+    # def testIsWeatherObjectMutable(self):
+    #
+    #
+    #     location = 'Heidelberg'
+    #     weatherReport = WeatherReport()
+    #     weather = weatherReport.getCurrentWeather(location)
+    #
+    #     weather.__temperature = 1
+    #     weather.temperature = 1
+    #     #self.assertIsEqual(weather.getTemperature(), 1)
+    #     self.assertIsNot(weather.getTemperature(), 1)
+
+    def printDictionary(self):
+
+        location = 'Heidelberg'
+        weatherReport = WeatherReport()
+        weatherList = weatherReport.getFiveDaysForecast(location)
+
+        print(weatherList)
 
 if __name__ == '__main__':
     unittest.main()

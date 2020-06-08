@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Qualitaetssicherung2.iml" filepath="$PROJECT_DIR$/.idea/Qualitaetssicherung2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/QualitaetssicherungMaster.iml" filepath="$PROJECT_DIR$/.idea/QualitaetssicherungMaster.iml" />
     </modules>
   </component>
 </project>
