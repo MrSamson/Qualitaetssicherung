@@ -41,20 +41,20 @@ class testWeatherReport(unittest.TestCase):
         weatherReport.getCurrentWeather(location)
 
 
-    # tests if correct error is raised
-    # may be used for learning tests
-    # refer to: https://stackoverflow.com/questions/6103825/how-to-properly-use-unit-testings-assertraises-with-nonetype-objects
-    def testGetCurrentWeatherNonsenseLocation(self):
-        location = 'Bylefeld'
-        weatherReport = WeatherReport()
-        #weatherReport.getCurrentWeather(location)
-        #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
-        self.assertRaises(requests.exceptions.RequestException, lambda: weatherReport.getCurrentWeather(location))
-
-        #won't work
-        #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
-
-        # should rise an exception or something
+    # # tests if correct error is raised
+    # # may be used for learning tests
+    # # refer to: https://stackoverflow.com/questions/6103825/how-to-properly-use-unit-testings-assertraises-with-nonetype-objects
+    # def testGetCurrentWeatherNonsenseLocation(self):
+    #     location = 'Bylefeld'
+    #     weatherReport = WeatherReport()
+    #     #weatherReport.getCurrentWeather(location)
+    #     #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
+    #     self.assertRaises(requests.exceptions.RequestException, lambda: weatherReport.getCurrentWeather(location))
+    #
+    #     #won't work
+    #     #self.assertRaises(weatherReport.getCurrentWeather(location), requests.exceptions.RequestException)
+    #
+    #     # should rise an exception or something
 
 
     # gets the current weather for Heidelberg and puts the results into an object
